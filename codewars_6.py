@@ -634,3 +634,406 @@ print(high('b aa'))
 print(high('bb d'))
 print(high('d bb'))
 print(high("aaa b"))
+
+def delete_nth(order, max_e):
+    final_arr = []
+    
+    for i, num in enumerate(order):
+        count_at_index = order[:i+1].count(order[i])
+        if count_at_index <= max_e:
+            final_arr.append(num)
+
+    return final_arr
+
+print(delete_nth([20,37,20,21], 1))
+print(delete_nth([1, 1, 3, 3, 7, 2, 2, 2, 2], 3))
+print(delete_nth([1, 2, 3, 1, 1, 2, 1, 2, 3, 3, 2, 4, 5, 3, 1], 3))
+print(delete_nth([1, 1, 1, 1, 1], 5))
+print(delete_nth([], 5))
+
+def count_smileys(arr):
+    #valid_faces = [':)', ':D',';-D',':~)']
+    smiley_count = 0
+
+    for value in arr:
+            if len(value) == 3:
+                if (value[0] == ':' or value[0] == ';') and (value[1] == '-' or value[1] == '~') and (value[2] == ')' or value[2] == 'D'):
+                        smiley_count += 1
+            elif len(value) == 2:
+                if (value[0] == ':' or value[0] == ';') and (value[1] == ')' or value[1] == 'D'):
+                        smiley_count += 1
+
+    return smiley_count
+
+print (count_smileys([]))
+print (count_smileys([':D',':~)',';~D',':)']))
+print (count_smileys([':)',':(',':D',':O',':;']))
+print (count_smileys([';]', ':[', ';*', ':$', ';-D']))
+
+def count_smileys(arr):
+    smiley_count = 0
+
+    for value in arr:
+        if len(value) == 3:
+            # Check the first and third characters
+            if (value[0] == ':' or value[0] == ';') and (value[2] == ')' or value[2] == 'D'):
+                smiley_count += 1
+        elif len(value) == 2:
+            # Check the first and second characters
+            if (value[0] == ':' or value[0] == ';') and (value[1] == ')' or value[1] == 'D'):
+                smiley_count += 1
+
+    return smiley_count
+
+print(count_smileys([]))
+print(count_smileys([':D', ':~)', ';~D', ':)']))
+
+def valid_braces(string):
+    stack = []
+    bracket_mapping = {'(': ')', '[': ']', '{': '}'}
+
+    for i in string:
+        if i in "([{":
+            stack.append(i)
+
+        elif i in ")]}":
+            if not stack:
+                return False
+
+            if bracket_mapping[stack.pop()] != i:
+                return False
+                        
+    return True
+
+print(valid_braces("()"))
+print(valid_braces("(}"))
+print(valid_braces("[]"))
+print(valid_braces("[(])"))
+print(valid_braces("{}"))
+print(valid_braces("{}()[]"))
+print(valid_braces("([{}])"))
+print(valid_braces("([}{])"))
+print(valid_braces("{}({})[]"))
+print(valid_braces("(({{[[]]}}))"))
+print(valid_braces("(((({{"))
+print(valid_braces(")(}{]["))
+print(valid_braces("())({}}{()][]["))
+
+def valid_braces(string):
+    stack = []
+    bracket_mapping = {'(': ')', '[': ']', '{': '}'}
+
+    for char in string:
+        if char in '({[':
+            # Push opening brace onto the stack
+            stack.append(char)
+        elif char in ')}]':
+            # Check if the stack is not empty
+            if not stack:
+                return False
+
+            # Check if the top element's corresponding closing brace matches the current closing brace
+            if bracket_mapping[stack.pop()] != char:
+                return False
+
+    # The string is valid if the stack is empty at the end
+    return not stack
+
+# Test cases
+print(valid_braces("()"))            # Output: True
+print(valid_braces("(}"))            # Output: False
+print(valid_braces("[]"))            # Output: True
+print(valid_braces("[(])"))          # Output: False
+print(valid_braces("{}"))            # Output: True
+print(valid_braces("{}()[]"))        # Output: True
+print(valid_braces("([{}])"))        # Output: True
+print(valid_braces("([}{])"))        # Output: False
+print(valid_braces("{}({})[]"))      # Output: True
+print(valid_braces("(({{[[]]}}))"))  # Output: True
+print(valid_braces("(((({{"))        # Output: False
+print(valid_braces(")(}{]["))        # Output: False
+print(valid_braces("())({}}{()][]["))
+
+
+import math
+from sympy import isprime
+
+def is_prime(num):
+    abs_num = abs(num)
+    square_root = math.sqrt(abs_num)
+    root_num = math.ceil(square_root)
+    i = 2
+    primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73]
+
+    if num < 2:
+        return False
+    
+    if num == 2:
+        return True
+    
+    if num > 3000:
+        return isprime(num)
+
+    for i in primes:
+        if i <= root_num:
+            if abs_num % i == 0:
+                return False
+        else:
+            return True
+        
+print(is_prime(0))
+print(is_prime(1))
+print(is_prime(2))
+print(is_prime(73))
+print(is_prime(75))
+print(is_prime(-1))
+print(is_prime(1000003))
+        
+def solution(s):
+    new_s = ""
+
+    for char in s:
+        if char.islower():
+            new_s += char
+
+        elif char.isupper():
+            new_s += " "
+            new_s += char
+
+    return new_s
+
+print(solution("helloWorld"))
+print(solution("camelCase"))
+print(solution("breakCamelCase"))
+
+def largest_consec(strarr, k):
+    new_arr = []
+    
+    long_str = ""
+
+    if k <= 0:
+        return ""
+
+    for i in range(len(strarr) - k + 1):
+        str_combo = ""
+        for j in range(i, i + k):
+            str_combo += strarr[j]
+        new_arr.append(str_combo)
+            
+    for i in new_arr:
+        if len(i) > len(long_str):
+            long_str = i
+
+    return long_str
+
+print(largest_consec(["zone", "abigail", "theta", "form", "libe", "zas"], 2))
+print(largest_consec(["ejjjjmmtthh", "zxxuueeg", "aanlljrrrxx", "dqqqaaabbb", "oocccffuucccjjjkkkjyyyeehh"], 1))
+print(largest_consec([], 3))
+print(largest_consec(["itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck"], 2))
+print(largest_consec(["wlwsasphmxx","owiaxujylentrklctozmymu","wpgozvxxiu"], 2))
+print(largest_consec(["zone", "abigail", "theta", "form", "libe", "zas"], -2))
+print(largest_consec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 3))
+print(largest_consec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 15))
+print(largest_consec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 0))
+
+sample = ["Hello", "World"]
+
+sample_str = "".join(sample)
+print(sample_str)
+
+def expanded_form(num):
+    arr = []
+    num_list = [int(digit) for digit in str(num)]
+    my_dict = {10 ** i: value for i, value in enumerate(range(len(num_list) - 1, -1, -1))}
+    my_dict = {key: num_list[value] for key, value in sorted(my_dict.items(), reverse=True)}
+    result_dict = {key: key * value for key, value in my_dict.items()}
+
+    for value in result_dict.values():
+        if value > 0:
+            arr.append(str(value))
+
+    final_str = " + ".join(arr)
+
+
+    return final_str
+
+print(expanded_form(12))
+print(expanded_form(42))
+print(expanded_form(70304))
+
+def expanded_form(num):
+    # Convert the number to a list of integers
+    num_list = [int(digit) for digit in str(num)]
+
+    # Get the powers of 10 in reverse order
+    powers_of_10 = [10 ** i for i in range(len(num_list) - 1, -1, -1)]
+
+    # Create a dictionary with powers of 10 as keys and digits as values
+    my_dict = dict(zip(powers_of_10, num_list))
+
+    # Filter out entries with value 0
+    my_dict = {key: value for key, value in my_dict.items() if value != 0}
+
+    # Create a list of strings for each term in the expanded form
+    terms = [str(value * key) for key, value in my_dict.items()]
+
+    # Join the terms with ' + ' to create the final string
+    final_str = " + ".join(terms)
+
+    return final_str
+
+# Test cases
+print(expanded_form(12))
+print(expanded_form(42))
+print(expanded_form(70304))
+
+
+def comp(array1, array2):
+    sq_array = [num ** 2 for num in array1]
+
+    if array1 is None or array2 is None:
+        return False
+
+    if array1 == [] and array2 == []:
+        return True
+
+    for i in sq_array:
+        if i not in array2:
+            return False
+
+    for j in array2:
+        if j not in sq_array:
+            return False
+        
+    if len(sq_array) != len(array2):
+        return False
+
+    return True
+
+print(comp([2,2,3,4,5,6,7,7], [4,9,16,25,36,49]))
+
+print(comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]))
+print(comp([121, 144, 19, 161, 19, 144, 19, 11], [11*21, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]))
+print(comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 190*190, 161*161, 19*19, 144*144, 19*19]))
+
+
+import math
+
+def comp(array1, array2):
+    # Check for None, empty list, or empty dictionary
+    if array1 is None or array2 is None:
+        return False
+    
+    if array1 == [] and array2 == []:
+        return True
+    
+    # Square each element in array1
+    squared_array1 = [num ** 2 for num in array1]
+    
+    # Sort the squared_array1 and array2
+    squared_array1.sort()
+    array2.sort()
+    
+    # Check if the sorted arrays are equal
+    return squared_array1 == array2
+
+print(comp([2,2,3,4,5,6,7,7], [4,9,16,25,36,49]))
+
+print(comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]))
+print(comp([121, 144, 19, 161, 19, 144, 19, 11], [11*21, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]))
+print(comp([121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 190*190, 161*161, 19*19, 144*144, 19*19]))
+
+def bouncing_ball(h, bounce, window):
+    count = 0
+    current_height = h
+
+    if h <= 0 or window <= 0 or bounce <= 0 or bounce > 1:
+        return -1
+    
+    if current_height < window:
+        return -1
+    
+    while current_height > window:
+        if current_height > window:
+            count += 1
+        
+        current_height *= bounce
+
+        if current_height > window:
+            count += 1
+
+    return count
+
+print(bouncing_ball(200000000, 0.5, 1.5))
+print(bouncing_ball(3, 0.66, 1.5))
+print(bouncing_ball(30, 0.66, 1.5))
+print(bouncing_ball(30, 0.75, 1.5))
+
+
+
+def bouncing_ball(h, bounce, window):
+    if h <= 0 or window <= 0 or bounce <= 0 or bounce >= 1:
+        return -1
+    
+    count = 0
+    current_height = h
+
+    while current_height > window:
+        count += 1  # Increment for each bounce, including the first one
+        current_height *= bounce
+
+    return count * 2 - 1  # Adjust count to account for the initial drop
+
+print(bouncing_ball(20000000, 0.5, 1))
+print(bouncing_ball(3, 0.66, 1.5))
+print(bouncing_ball(30, 0.66, 1.5))
+print(bouncing_ball(30, 0.75, 1.5))
+
+def in_array(array1, array2):
+    final_array = []
+
+    for word in array1:
+        for string in array2:
+            if word in string and word not in final_array:
+                final_array.append(word)
+
+    sorted_array = sorted(final_array)
+
+    return sorted_array
+
+print(in_array(["live", "arp", "strong"], ["lively", "alive", "harp", "sharp", "armstrong"]))
+print(in_array(["arp", "mice", "bull"], ["lively", "alive", "harp", "sharp", "armstrong"]))
+
+def queue_time(customers, n):
+    first_five = customers[0:n]
+    remaining = customers[n:]
+
+    if customers == []:
+        return 0
+
+    for customer_time in remaining:
+        open_till = min(first_five)
+        open_spot = first_five.index(open_till)
+        first_five[open_spot] = open_till + customer_time
+
+    return max(first_five)
+    
+
+print(queue_time([11, 29, 12, 3, 5, 42, 9, 39, 20, 15, 9], 5))
+print(queue_time([1,2,3,4,5], 1))
+print(queue_time([2], 5))
+print(queue_time([], 1))
+
+def count(s):
+    char_lib = {}
+
+    for i in range(len(s)):
+        char = s[i]
+        char_lib[char] = s.count(char)
+
+    return char_lib
+
+print(count("aba"))
+print(count(""))
+print(count("aa"))
+print(count("aabb"))
