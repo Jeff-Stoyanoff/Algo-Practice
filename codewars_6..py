@@ -1037,3 +1037,178 @@ print(count("aba"))
 print(count(""))
 print(count("aa"))
 print(count("aabb"))
+
+def wave(people):
+    if not people.strip():  # Check if input is empty or contains only spaces
+        return []
+    
+    people_array = [people for _ in range(len(people))]
+    to_upper = 0
+    
+    for index, word in enumerate(people_array):
+        new_word = word[:to_upper] + word[to_upper].upper() + word[to_upper+1:]
+        people_array[index] = new_word
+        to_upper += 1
+
+    final_array = [j for j in people_array if not j.islower()]
+
+    return final_array
+
+print(wave("hello"))
+print(wave("two words"))
+print(wave(' '))
+
+
+def wave(people):
+    final_array = []
+    for i in range(len(people)):
+        if people[i].isalpha():  # Check if character is alphabetic
+            new_word = people[:i] + people[i].upper() + people[i+1:]
+            final_array.append(new_word)
+    return final_array
+
+# Test the function
+print(wave("hello"))
+print(wave("two words"))
+
+def wave(people):
+    return [people[:i] + char.upper() + people[i+1:] for i, char in enumerate(people) if char.isalpha()]
+
+# Test the function
+print(wave("hello"))
+print(wave("two words"))
+
+def two_sum(numbers, target):
+
+    for i in range(len(numbers)):
+        for j in range(i + 1, len(numbers)):
+            if numbers[i] + numbers[j] == target:
+                return i, j
+        
+print(two_sum([1,2,3], 4))
+print(two_sum([1234,5678,9012], 14690))
+print(two_sum([2,2,3], 4))
+
+def sum_dig_pow(a, b):
+    arr = []
+
+    for num in range(a, b+1):
+        sum_of_power = 0
+        if num < 10:
+            arr.append(num)
+
+        elif num > 9:
+            for idx, digit_char in enumerate(str(num), start=1):
+                digit = int(digit_char)
+                sum_of_power += digit ** idx
+                if num == sum_of_power:
+                    arr.append(num)
+
+
+    return arr
+
+print(sum_dig_pow(1, 10))
+print(sum_dig_pow(1, 100))
+print(sum_dig_pow(10, 89))
+print(sum_dig_pow(10, 100))
+print(sum_dig_pow(90, 100))
+print(sum_dig_pow(89, 135))
+
+def solution(n):
+    num_library = {
+        'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10,
+        'XL': 40, 'L': 50, 'XC': 90, 'C': 100,
+        'CD': 400, 'D': 500, 'CM': 900, 'M': 1000
+    }
+    rom_num = ""
+    keys_list = list(num_library.keys())
+    values_list = list(num_library.values())
+
+    values_list.reverse()
+    keys_list.reverse()
+
+    while n > 0:
+        for index, value in enumerate(values_list):
+            if value <= n:
+                rom_num += keys_list[index]
+                n -= value
+                break
+            
+    return rom_num
+
+print(solution(1))
+print(solution(4))
+print(solution(6))
+print(solution(14))
+print(solution(21))
+print(solution(89))
+print(solution(91))
+print(solution(984))
+print(solution(1000))
+print(solution(1889))
+print(solution(1989))
+
+def solution(n):
+    num_library = {
+        'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10,
+        'XL': 40, 'L': 50, 'XC': 90, 'C': 100,
+        'CD': 400, 'D': 500, 'CM': 900, 'M': 1000
+    }
+    num = 0
+    i = 0
+
+    while i < len(n):
+        if i + 1 <= len(n) and n[i:i+2] in num_library:
+            num += num_library[n[i:i+2]]
+            i += 2
+        else:
+            num += num_library[n[i]]
+            i += 1            
+            
+    return num
+
+
+print(solution('MMMCMXCIX'))
+print(solution('MDCLXVI'))
+print(solution('M'))
+print(solution('CD'))
+print(solution('XC'))
+print(solution('XL'))
+print(solution('I'))
+print(solution('MMMCMXCIX'))
+print(solution('MMMDCCCLXXXVIII'))
+
+def camel_case(s):
+    str_word = s.split()
+    camel = ""
+
+    for word in str_word:
+        for i in range(len(word)):
+            if i == 0:
+                cap = word[0].upper()
+                camel += cap
+            else:
+                camel += word[i]
+
+    return camel
+
+print(camel_case("test case"))
+print(camel_case("camel case method"))
+print(camel_case("say hello"))
+print(camel_case("camel case word"))
+print(camel_case(""))
+
+def camel_case(s):
+    str_word = s.split()
+    camel = ""
+
+    for word in str_word:
+        for idx, char in enumerate(word):
+            if idx == 0:
+                camel += char.upper()  # Capitalize the first character
+            else:
+                camel += char.lower()  # Lowercase the rest of the characters
+
+    return camel
+
+print(camel_case("test case"))
